@@ -28,11 +28,10 @@
 						</div>
 						<div class="footer-content">
 							<ul>
-								<li><a href="">about</a></li>
-								<li><a href="">contact</a></li>
-								<li><a href="">privacy</a></li>
-								<li><a href="">our blog</a></li>
-								<li><a href="">forum</a></li>
+								<li><a href="<?= base_url('about') ?>">about</a></li>
+								<li><a href="<?= base_url('contact') ?>">contact</a></li>
+								<li><a href="<?= base_url('page/privacy') ?>">privacy</a></li>
+								<li><a href="<?= base_url('blog') ?>">our blog</a></li>
 							</ul>
 						</div>
 					</div>
