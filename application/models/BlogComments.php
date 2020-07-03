@@ -1,82 +1,33 @@
 <?php
 
-class Blogs extends CI_Model {
-
-    var $tblName = 'blog';
+class BlogComments extends CI_Model{
+    
+    var $tblName = 'post_comments';
 
     function __construct() {
         parent::__construct();
     }
 
-    public function __call($name, $arguments) { 
-		if($name == 'getAll') {
-			switch(count($arguments)){
-				case 2:
-					return	$this->getAllPagination($arguments[0],$arguments[1]);
-				break;
-				case 0:
-					return  $this->getAll();
-				break;
-			}	
-		}
-    } 
-
-    public function get($id = null){
-        if(!is_null($id)){
-            $this->db->select('*')
-                    ->join('blog_categories', ''.$this->tblName.'.category = blog_categories.id')
-                    ->from($this->tblName)
-                    ->where("{$this->tblName}.id", $id);
-            $query = $this->db->get();
-		    return $query->row_array();
-        }
-        return null;
-    }
-
-    public function getLatestPosts(){
-        $this->db->select('*')
-                ->from($this->tblName)
-				->where('status', 1)
-                ->order_by('id', 'desc')
-                ->limit(3,0);
-
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
-    public function relatedPosts($catID = null){
-        if(!is_null($catID)){
+    public function get_by_post($postID = null){
+        if(!is_null($postID)){
             $query = $this->db
                     ->select('*')
-                    ->from($this->tblName)
-                    ->where('category',$catID)
-                    ->limit(3)
-                    ->order_by('id', 'desc')
-                    ->get();
+                    ->where('status <> 0')
+                    ->where('post_id', $postID)
+                    ->get($this->tblName);
             return $query->result_array();
         }
         return null;
-    }
-    
-    private function getAllPagination($limit, $start){
-        $this->db->select('*')
-				->from($this->tblName)
-                ->where("status", 1)
-                ->order_by('id', 'desc')
-				->limit($limit, $start);
-		$query = $this->db->get();
-		return $query->result_array();
     }
 
     /* *************************************************************************
      * CRUD FUNCTIONS START
      * ******************************************************************** */
 
-    private function getAll(): array {
+    public function getAll(): array {
         $query = $this->db
                 ->select('*')
                 ->where('status <>', 0)
-                ->order_by('id', 'desc')
                 ->get($this->tblName);
         return $query->result_array();
     }
@@ -121,5 +72,5 @@ class Blogs extends CI_Model {
     /* *********************************************************************
      * CRUD FUNCTIONS END
      * ******************************************************************** */
-
+    
 }

@@ -52,8 +52,9 @@ class Blog extends Frontend_Controller {
         $id = $this->uri->segment(3);
         if(is_numeric($id)){
             $data['post_data'] = $this->blogModel->get($this->uri->segment(3));
-            $data['blog_categories'] = $this->blogCategoriesModel->getAll();
- 
+			$data['blog_categories'] = $this->blogCategoriesModel->getAll();
+			$data['blog_post_comments'] = $this->blogCommentsModel->get_by_post($this->uri->segment(3));
+
             $this->render_header($data);
             $this->render_menu($data);
             $this->load->view('blog/read',$data);
@@ -62,6 +63,21 @@ class Blog extends Frontend_Controller {
         }else{
             show_404();
         }
-    }
+	}
+	
+	/**
+	 * Ajax Functions
+	 */
+	
+	 public function processPostComment(){
+		$resp = array();
+        if($this->input->is_ajax_request()){
+			$resp = ['status' => 1, 'msg' => 'got request'];
+		}else{
+			$resp = ['status' => 0, 'msg' => 'Invalid request. Please try again.'];
+		}
+		echo json_encode($resp);
+        return;
+	 }
     
 }

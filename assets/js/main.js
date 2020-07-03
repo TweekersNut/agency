@@ -195,3 +195,66 @@ $(document).ready(function(){
 	});
 	//console.log(current);
 });
+
+//Blog Post Comment Handler
+$(document).ready(function () {
+	$("#blog_post_comment").submit(function(e){
+		e.preventDefault();
+		
+		var form = $("#blog_post_comment")[0];
+
+		var comment_data = {
+			name:$("input[name='name']").val(),
+			email:$("input[name='email']").val(),
+			comment:$("textarea[name='comment']").val(),
+			post_id:$("input[name='post_id']").val(),
+			user_id:$("input[name='user_id']").val()
+		}
+
+		$.ajax({
+			type: "POST",
+			url: BASE_URL + "blog/processPostComment",
+			data : comment_data,
+			beforeSend : function () {
+				$.notify("Processing Request","info",{ 
+					autoHide: true,
+  					autoHideDelay: 2000
+  				});
+				$("button[type='submit']").attr('disabled',true);
+			},
+			success : function (resp){
+				var respData = JSON.parse(resp);
+				if(respData.status === 1){
+					$.notify(respData.msg,"success",{
+						autoHide:true,
+						autoHideDelay:5000
+					});
+					form.reset();
+				}else{
+					if(Array.isArray(respData.msg)){
+						(respData.msg.forEach(element => {
+							(element.f_name !== 'undefined') ? $.notify(element.f_name,'warning') : '';
+							(element.l_name !== 'undefined') ? $.notify(element.l_name,'warning') : '';
+							(element.email !== 'undefined') ? $.notify(element.email,'warning') : '';
+							(element.message !== 'undefined') ? $.notify(element.message,'warning') : '';
+						}));
+					}else{
+						$.notify(respData.msg,"warning",{
+							autoHide:true,
+							autoHideDelay:5000
+						});
+					}
+				}
+			},
+			error: function(err){
+				$.notify("xHR Request error.","danger");
+				console.log(err);
+			},
+			complete: function(){
+				$("button[type='submit']").attr('disabled',false);
+				console.log('Request complete.');
+			}
+		});
+
+	})
+});
