@@ -68,6 +68,29 @@ class Blogs extends CI_Model {
 		return $query->result_array();
     }
 
+    public function getAllByCategory($catID = 0){
+        
+        $this->db->select('*')
+				->from($this->tblName)
+                ->where("status", 1)
+                ->where('category', $catID)
+                ->order_by('id', 'desc');
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+
+    public function getAllByCategoryPagination($catID = 0,$_limit = 0, $start = 0){
+        
+        $this->db->select('*')
+				->from($this->tblName)
+                ->where("status", 1)
+                ->where('category', $catID)
+                ->order_by('id', 'desc')
+				->limit($_limit, $start);
+		$query = $this->db->get();
+		return $query->result_array();
+    }
+
     /* *************************************************************************
      * CRUD FUNCTIONS START
      * ******************************************************************** */

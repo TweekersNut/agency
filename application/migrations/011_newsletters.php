@@ -2,14 +2,14 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_post_comments extends CI_Migration {
+class Migration_newsletters extends CI_Migration {
 
 	/**
 	 * Name of the table to be used in this migration!
 	 *
 	 * @var string
 	 */
-	protected $_table_name = "post_comments";
+	protected $_table_name = "newsletters";
 
 	public function up()
 	{
@@ -18,21 +18,6 @@ class Migration_post_comments extends CI_Migration {
 				'type' => 'bigint',
 				'unsigned' => true,
 				'auto_increment' => true
-			],
-			'user_id' => [
-				'type' => 'bigint',
-				'default' => 0
-			],
-			'post_id' => [
-				'type' => 'bigint',
-				'default' => 0
-			],
-			'comment' => [
-				'type' => 'longtext',
-				'default' => ''
-			],
-			'name' => [
-				'type' => 'text'
 			],
 			'email' => [
 				'type' => 'varchar',

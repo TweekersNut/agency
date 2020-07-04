@@ -58,7 +58,7 @@
 								<ul>
                                     <?php if(count($blog_categories) > 0): ?>
                                         <?php foreach($blog_categories as $k => $v): ?>
-										<li><a <?php if($v['id'] == $post_data['category']):?> style='color:#20c997' <?php endif; ?> href="#"><?= ucfirst($v['name']) ?></a></li>
+										<li><a href="<?= base_url('blog/category/'.$v['id'].'/'.urlencode($v['name'])) ?>" <?php if($v['id'] == $post_data['category']):?> style='color:#20c997' <?php endif; ?> href="#"><?= ucfirst($v['name']) ?></a></li>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
 									
@@ -97,9 +97,10 @@
 
 								<div class="single-comment">
 									<div class="image-box">
-										<img src="<?= $commentUserData['avatar'] ?>" alt="<?= $commentUserData['username'] ?>">
+										<img src="<?= ($commentUserData['avatar']) ? $commentUserData['avatar'] : base_url('assets/img/avatar/default.png') ?>" alt="<?= ($commentUserData['username']) ? $commentUserData['username'] : $comment['name'] ?>">
 									</div>
 									<div class="text-box">
+										<h5><?= ($commentUserData['username']) ? $commentUserData['username'] : $comment['name'] . "({$comment['email']})"  ?></h5>
 										<p><?= $comment['comment'] ?></p>
 									</div>
 								</div>

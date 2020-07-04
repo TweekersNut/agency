@@ -233,10 +233,9 @@ $(document).ready(function () {
 				}else{
 					if(Array.isArray(respData.msg)){
 						(respData.msg.forEach(element => {
-							(element.f_name !== 'undefined') ? $.notify(element.f_name,'warning') : '';
-							(element.l_name !== 'undefined') ? $.notify(element.l_name,'warning') : '';
+							(element.name !== 'undefined') ? $.notify(element.name,'warning') : '';
 							(element.email !== 'undefined') ? $.notify(element.email,'warning') : '';
-							(element.message !== 'undefined') ? $.notify(element.message,'warning') : '';
+							(element.comment !== 'undefined') ? $.notify(element.message,'warning') : '';
 						}));
 					}else{
 						$.notify(respData.msg,"warning",{
@@ -245,6 +244,8 @@ $(document).ready(function () {
 						});
 					}
 				}
+				$("button[type='submit']").attr('disabled',false);
+				setTimeout(() => {window.location.reload(true)},1000);
 			},
 			error: function(err){
 				$.notify("xHR Request error.","danger");
