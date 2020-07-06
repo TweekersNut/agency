@@ -12,6 +12,7 @@ class APP_Controller extends CI_Controller  {
 				$this->load->model('Blogs','blogModel');
 				$this->load->model('BlogCategories','blogCategoriesModel');
 				$this->load->model('BlogComments','blogCommentsModel');
+				$this->load->model('Newsletters', 'newsletterModel');
         }
 }
 
