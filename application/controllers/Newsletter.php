@@ -25,7 +25,7 @@ class Newsletter extends Frontend_Controller {
                 array(
                     'field' => 'email',
                     'label' => 'E-Mail',
-                    'rules' => 'required|valid_email',
+                    'rules' => 'required|valid_email|is_unique[newsletters.email]',
                 ),
             );
             $this->form_validation->set_rules($validations);

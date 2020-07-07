@@ -56,8 +56,8 @@
 							<h3>Get Updates</h3>
 						</div>
 						<div class="footer-content footer-cont-mar-40">
-							<form action="#">
-								<input id="leadgenaration" type="email" placeholder="Enter your email">
+							<form action="#" id="subscribe-newsletters">
+								<input id="leadgenaration" name="email" type="email" placeholder="Enter your email">
 								<input id="subscribe" type="submit" value="Subscribe">
 							</form>
 						</div>

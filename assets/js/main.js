@@ -259,3 +259,56 @@ $(document).ready(function () {
 
 	})
 });
+
+$(document).ready(() => {
+	$("#subscribe-newsletters").submit((e) => {
+		e.preventDefault();
+
+		var email = $("input[name='email']").val();
+		var form = $("#subscribe-newsletters")[0];
+
+		$.ajax({
+			type: "POST",
+			url: BASE_URL + "newsletter/processSubscribe",
+			data : {email},
+			beforeSend : function () {
+				$.notify("Processing Request","info",{ 
+					autoHide: true,
+  					autoHideDelay: 2000
+  				});
+				$("input[type='submit']").attr('disabled',true);
+			},
+			success : function (resp){
+				var respData = JSON.parse(resp);
+				if(respData.status === 1){
+					$.notify(respData.msg,"success",{
+						autoHide:true,
+						autoHideDelay:5000
+					});
+					form.reset();
+				}else{
+					if(Array.isArray(respData.msg)){
+						(respData.msg.forEach(element => {
+							(element.email !== 'undefined') ? $.notify(element.email,'warning') : '';
+						}));
+					}else{
+						$.notify(respData.msg,"warning",{
+							autoHide:true,
+							autoHideDelay:5000
+						});
+					}
+				}
+				$("input[type='submit']").attr('disabled',false);
+			},
+			error: function(err){
+				$.notify("xHR Request error.","danger");
+				console.log(err);
+			},
+			complete: function(){
+				$("input[type='submit']").attr('disabled',false);
+				console.log('Request complete.');
+			}
+		});
+
+	})
+});
