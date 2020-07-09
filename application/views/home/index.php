@@ -335,26 +335,30 @@
 				</div>
 				<div class="row testimonial-slider">
 					<!-- single testimonial-->
-					<div class="single-testimonial d-flex align-items-center">
-						<div class="left-content">
-							<div class="quotation">
-								<img src="<?= base_url('assets/') ?>img/client/qoute.png" alt="">
+					<?php if(count($testimonials) > 0) : ?>
+						<?php foreach($testimonials as $testimonial): ?>
+							<div class="single-testimonial d-flex align-items-center">
+								<div class="left-content">
+									<div class="quotation">
+										<img src="<?= base_url('assets/') ?>img/client/qoute.png" alt="">
+									</div>
+									<div class="testi-slider-text">
+										<p> <?= $testimonial['testimony'] ?></p>
+										<h4><?= $testimonial['name'] ?></h4>
+										<h5><?= $testimonial['company'] ?></h5>
+									</div>
+									<div class="right-quote">
+										<img src="<?= base_url('assets/') ?>img/client/right-quote.png" alt="">
+									</div>
+								</div>
+								<div class="right-content">
+									<div class="testimonial-img">
+										<img src="<?= base_url('assets/') ?>img/client/testimonial-1.jpg" alt="">
+									</div>
+								</div>
 							</div>
-							<div class="testi-slider-text">
-								<p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis labore sapiente iste doloribus ducimus unde, veniam inventore eius aliquid ab ipsa laborum, architecto ea ut. Eligendi, aut delectus quia nemo animi.</p>
-								<h4>Gary Love</h4>
-								<h5>CEO,XYZ.com</h5>
-							</div>
-							<div class="right-quote">
-								<img src="<?= base_url('assets/') ?>img/client/right-quote.png" alt="">
-							</div>
-						</div>
-						<div class="right-content">
-							<div class="testimonial-img">
-								<img src="<?= base_url('assets/') ?>img/client/testimonial-1.jpg" alt="">
-							</div>
-						</div>
-					</div>
+						<?php endforeach; ?>
+					<?php endif; ?>
 					
 				</div>
 			</div>
