@@ -37,6 +37,11 @@ class Migration_pricing extends CI_Migration {
 				'type' => 'varchar',
 				'constraint' => 50
 			],
+			'best' => [
+				'type' => 'char',
+				'constraint' => 1,
+				'default' => 0
+			],
 			'status' => [
 				'type' => 'char',
 				'constraint' => 1,
